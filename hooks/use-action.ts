@@ -48,4 +48,12 @@ export const useAction = <TInput, TOutput> (
       }
     }, [action, options]
   )
+
+  return {
+    execute,
+    filedErrors,
+    error,
+    data,
+    isLoading
+  }
 }
