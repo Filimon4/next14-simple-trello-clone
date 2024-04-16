@@ -3,6 +3,8 @@ import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db"
 import { redirect } from "next/navigation";
 
+import { ListContrainer } from "./_component/list-container";
+
 interface BoardIdPageProps {
   params: {
     boardId: string;
