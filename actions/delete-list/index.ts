@@ -25,17 +25,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         id,
         boardId,
         board: {
-          orgId,
-        },
-      },
+          orgId
+        }
+      }
     })
   } catch (error) {
     return {
-      error: "Failed to delete"
+      error: "Failed to copy."
     }
   }
 
-  revalidatePath(`/board/${boardId}`);
+  revalidatePath(`/board/${id}`);
   return { data: list }
 }
 
