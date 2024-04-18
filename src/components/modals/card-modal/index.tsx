@@ -8,9 +8,10 @@ import { CardWthList } from "@/types";
 import { fetcher } from "@/lib/fetcher";
 
 import { Header } from "./header";
-import { Card, List } from "@prisma/client";
+import { AuditLog, Card, List } from "@prisma/client";
 import { Description } from "./description";
 import { Actions } from "./actions";
+import { Activity } from "./activity";
 
 export const CardModal = () => {
   const {id, isOpen, onClose } = useCardModal((state) => state);
@@ -18,6 +19,11 @@ export const CardModal = () => {
   const { data: cardData } = useQuery<Card & {list: List}>({
     queryKey: ["card", id],
     queryFn: () => fetcher(`/api/cards/${id}`)
+  })
+
+  const { data: auditLogsData } = useQuery<AuditLog[]>({
+    queryKey: ["card-logs", id],
+    queryFn: () => fetcher(`/api/cards/${id}/logs`)
   })
 
   return (
@@ -36,6 +42,10 @@ export const CardModal = () => {
               {!cardData
                 ? <Description.Skeleton />
                 : <Description data={cardData} />
+              }
+              {!auditLogsData
+                ? <Activity.Skeleton />
+                : <Activity items={auditLogsData} />
               }
             </div>
           </div>

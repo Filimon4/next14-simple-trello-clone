@@ -25,14 +25,14 @@ model Board {
 }
 
 model List {
-  id      String @id @default(uuid())
-  title   String
-  order   Int
+  id        String @id @default(uuid())
+  title     String
+  order     Int
 
-  cards   Card[]
+  cards     Card[]
 
-  boardId String
-  board   Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardId   String
+  board     Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -52,4 +52,31 @@ model Card {
   updatedAt   DateTime @updatedAt
 
   @@index([listId])
+}
+
+enum ACTION {
+  CREATE
+  UPDATE
+  DELETE
+}
+
+enum ENTITY_TYPE {
+  BOARD
+  LIST
+  CARD
+}
+
+model AuditLog {
+  id          String @id @default(uuid())
+  orgId       String
+  action      ACTION
+  entityId    String
+  entityType  ENTITY_TYPE
+  entityTitle String
+  userId      String
+  userImage   String @db.Text
+  userName    String @db.Text
+
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @updatedAt
 }

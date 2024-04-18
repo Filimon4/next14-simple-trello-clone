@@ -13,7 +13,7 @@ const Navbar = () => {
       <MobileSidebar />
       <div className="flex items-center gap-x-4">
         <div className="hidden md:flex">
-          <Logo />
+          <Logo/>
         </div>
         <FormPopover align='start' side='bottom' sideOffset={18}>
           <Button variant={"primary"} size="sm" className="rounded-sm hidden md:block h-auto py-1.5 px-2">
