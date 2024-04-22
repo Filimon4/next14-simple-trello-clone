@@ -37,7 +37,6 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
     },
     onError: (error) => {
       toast.error(error);
-
     }
   });
 

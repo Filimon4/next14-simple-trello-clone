@@ -3,7 +3,7 @@
 import { Card, List } from "@prisma/client";
 
 import { toast } from "sonner"
-import { Copy, Trash } from "lucide-react";
+import { Copy, Trash, SquareCheck } from "lucide-react";
 import { useParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -93,6 +93,16 @@ export const Actions = ({
       >
         <Trash className="h-4 w-4 mr-2" />
         Delete
+      </Button>
+      <Button
+        onClick={() => {}}
+        disabled={isLoadingDelete}
+        variant={"gray"}
+        className="w-full justify-start"
+        size="inline"
+      >
+        <SquareCheck className="h-4 w-4 mr-2" />
+        Tasks
       </Button>
     </div>
   )

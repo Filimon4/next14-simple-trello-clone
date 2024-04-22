@@ -26,6 +26,11 @@ export const CardModal = () => {
     queryFn: () => fetcher(`/api/cards/${id}/logs`)
   })
 
+  const { data: tasksData } = useQuery({
+    queryKey: [],
+    queryFn: () => fetcher(`/api/catds/${id}/tasks`)
+  })
+
   return (
     <Dialog
       open={isOpen}
