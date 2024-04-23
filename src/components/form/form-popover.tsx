@@ -26,7 +26,7 @@ interface FormPopoverProps {
   sideOffset?: number;
 }
 
-export const  FormPopover = ({
+export const FormPopover = ({
   children,
   side = "bottom",
   align,
@@ -51,8 +51,6 @@ export const  FormPopover = ({
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
     const image = formData.get("image") as string;
-
-
     execute({ title, image })
   }
 
@@ -83,7 +81,6 @@ export const  FormPopover = ({
             <FormPicker 
               id="image"
               errors={filedErrors}
-
             />
             <FormInput 
               id="title"

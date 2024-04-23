@@ -12,7 +12,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAction } from "@main/hooks/use-action";
 import { copyCard } from "@main/actions/copy-card";
 import { deleteCard } from "@main/actions/delete-card";
+import { createTask } from "@main/actions/create-task"
 import { useCardModal } from "@main/hooks/use-card-modal";
+import { TasksFormPopover } from "@/components/form-tasks/form-popover";
 
 interface ActionsProps {
   data: Card & { list: List};
@@ -50,6 +52,18 @@ export const Actions = ({
     }
   });
 
+  const {
+    execute: executeCreateTask,
+    isLoading: isLoadingCreateTask,
+  } = useAction(createTask, {
+    onSuccess: (data) => {
+      toast.success(`Task "${data.title}" created`)
+    },
+    onError: (error) => {
+      toast.error(`Task error: "${error}"`)
+    }
+  });
+
   const onCopy = () => {
     const boardId = params.boardId as string;
 
@@ -70,7 +84,6 @@ export const Actions = ({
 
   return (
     <div className="space-y-2 mt-2">
-
       <p className="text-xs font-semibold">
         Actions
       </p>
@@ -94,16 +107,18 @@ export const Actions = ({
         <Trash className="h-4 w-4 mr-2" />
         Delete
       </Button>
-      <Button
-        onClick={() => {}}
-        disabled={isLoadingDelete}
-        variant={"gray"}
-        className="w-full justify-start"
-        size="inline"
-      >
-        <SquareCheck className="h-4 w-4 mr-2" />
-        Tasks
-      </Button>
+      <TasksFormPopover>
+        <Button
+          onClick={() => {}}
+          disabled={isLoadingCreateTask}
+          variant={"gray"}
+          className="w-full justify-start"
+          size="inline"
+          >
+          <SquareCheck className="h-4 w-4 mr-2" />
+          Add Tasks
+        </Button>
+      </TasksFormPopover>
     </div>
   )
 }
