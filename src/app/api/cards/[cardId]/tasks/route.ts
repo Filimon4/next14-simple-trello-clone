@@ -7,7 +7,6 @@ export async function GET(
   request: Request,
   { params }: { params: {cardId: string} }
 ) {
-  console.log(params)
   try {
     const { userId, orgId } = auth()
 

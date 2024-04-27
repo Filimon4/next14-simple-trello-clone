@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAction } from "@main/hooks/use-action";
 import { copyCard } from "@main/actions/copy-card";
 import { deleteCard } from "@main/actions/delete-card";
-import { createTask } from "@main/actions/create-task"
+import { createTaskList } from "@main/actions/create-tasklist"
 import { useCardModal } from "@main/hooks/use-card-modal";
 import { TasksFormPopover } from "@/components/form-tasks/form-popover";
 
@@ -55,7 +55,7 @@ export const Actions = ({
   const {
     execute: executeCreateTask,
     isLoading: isLoadingCreateTask,
-  } = useAction(createTask, {
+  } = useAction(createTaskList, {
     onSuccess: (data) => {
       toast.success(`Task "${data.title}" created`)
     },

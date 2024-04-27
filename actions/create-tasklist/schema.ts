@@ -7,5 +7,6 @@ export const CreateTaskList = z.object({
   }).min(3, {
     message: "Title is too short"
   }),
-  boardId: z.string(),
+  cardId: z.string(),
+  boardId: z.string()
 })

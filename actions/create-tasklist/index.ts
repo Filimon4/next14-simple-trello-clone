@@ -18,38 +18,39 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     }
   }
 
-  const { title, boardId } = data;
+  const { title, cardId, boardId } = data;
   let taskList;
 
   try {
-    // const board = await db.board.findUnique({
-    //   where:{
-    //     id: boardId,
-    //     orgId,
-    //   }
-    // })
+    const card = await db.card.findUnique({
+      where: {
+        id: cardId,
+      }
+    })
 
-    // if (!board) {
-    //   return {
-    //     error: "board not found",
-    //   };
-    // }
+    if (!card) {
+      return {
+        error: "card not found"
+      }
+    }
 
-    // const lastList = await db.list.findFirst({
-    //   where: { boardId: boardId },
-    //   orderBy: { order: 'desc' },
-    //   select: { order: true },
-    // })
+    const lastTask = await db.task.findFirst({
+      where: {
+        cardId
+      },
+      orderBy: { order: 'desc' }
+    })
+    
+    const nextOrder = lastTask ? lastTask.order + 1 : 1;
 
-    // const newOrder = lastList ? lastList.order + 1 : 1;
-
-    // list = await db.list.create({
-    //   data: {
-    //     title,
-    //     boardId,
-    //     order: newOrder,
-    //   }
-    // })
+    taskList = await db.task.create({
+      data: {
+        title,
+        cardId,
+        check: false,
+        order: nextOrder
+      }
+    })   
 
     // await createAuditLog({
     //   entityTitle: list.title,

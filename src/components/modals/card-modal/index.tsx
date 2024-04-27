@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useCardModal } from "@main/hooks/use-card-modal";
-import { CardWthList } from "@/types";
 import { fetcher } from "@/lib/fetcher";
 
 import { Header } from "./header";
@@ -12,6 +11,7 @@ import { AuditLog, Card, List } from "@prisma/client";
 import { Description } from "./description";
 import { Actions } from "./actions";
 import { Activity } from "./activity";
+import { Tasks } from './tasks';
 
 export const CardModal = () => {
   const {id, isOpen, onClose } = useCardModal((state) => state);
@@ -28,10 +28,8 @@ export const CardModal = () => {
 
   const { data: tasksData } = useQuery({
     queryKey: ["taks", id],
-    queryFn: () => fetcher(`/api/catds/${id}/tasks`)
+    queryFn: () => fetcher(`/api/cards/${id}/tasks`)
   })
-
-  console.log(`Tasks: ${tasksData}`)
 
   return (
     <Dialog
@@ -49,6 +47,10 @@ export const CardModal = () => {
               {!cardData
                 ? <Description.Skeleton />
                 : <Description data={cardData} />
+              }
+              {!tasksData
+                ? <Tasks.Skeleton />
+                : <Tasks data={tasksData} />
               }
               {!auditLogsData
                 ? <Activity.Skeleton />

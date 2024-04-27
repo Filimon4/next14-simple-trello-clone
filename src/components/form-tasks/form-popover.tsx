@@ -13,6 +13,9 @@ import { FormInput } from "../form/form-input";
 import { ElementRef, useRef } from "react";
 import { useAction } from "@main/hooks/use-action";
 import { toast } from "sonner";
+import { createTaskList } from "@main/actions/create-tasklist";
+import { useCardModal } from "@main/hooks/use-card-modal";
+import { useParams } from "next/navigation";
 
 interface FormTasksPopoverProps{
   children: React.ReactNode
@@ -22,6 +25,8 @@ export const TasksFormPopover = ({
   children
 }: FormTasksPopoverProps) => {
   const closeRef = useRef<ElementRef<'button'>>(null);
+  const cardModal = useCardModal()
+  const route = useParams()
 
   const {execute, filedErrors} = useAction(createTaskList, {
     onSuccess: (data) => {
@@ -32,8 +37,12 @@ export const TasksFormPopover = ({
 
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
+    const boardId = route.boardId as string
+    const cardId = cardModal.id
 
-    execute({title})
+    if (cardId && boardId && title) {
+      execute({title, cardId, boardId})
+    }
   }
 
   return (
